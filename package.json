@@ -1,0 +1,133 @@
+{
+  "name": "git-quick-actions",
+  "displayName": "Git Quick Actions",
+  "description": "Git Quick Actions for the Source Control Manager",
+  "version": "1.4.0",
+  "publisher": "Yeatol",
+  "icon": "package.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Yeatol/vscode-scm"
+  },
+  "engines": {
+    "vscode": "^1.146.0"
+  },
+  "extensionDependencies": [
+    "vscode.git"
+  ],
+  "categories": [
+    "SCM Providers"
+  ],
+  "main": "./build/package.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "Git.CommitAmend",
+        "title": "Commit Amend",
+        "icon": "$(fold-down)"
+      },
+      {
+        "command": "Git.CommitUndo",
+        "title": "Commit Undo",
+        "icon": "$(fold-up)"
+      },
+      {
+        "command": "Git.RebaseInteractive",
+        "title": "Interactive Rebase",
+        "icon": "$(list-unordered)"
+      },
+      {
+        "command": "Git.ForcePull",
+        "title": "Force Pull",
+        "icon": "$(cloud-download)"
+      },
+      {
+        "command": "Git.ForcePush",
+        "title": "Force Push",
+        "icon": "$(cloud-upload)"
+      },
+      {
+        "command": "Git.ResetKeep",
+        "title": "Reset Keep",
+        "icon": "$(cloud)"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "Git.CommitAmend",
+          "when": "false"
+        },
+        {
+          "command": "Git.CommitUndo",
+          "when": "false"
+        },
+        {
+          "command": "Git.RebaseInteractive",
+          "when": "false"
+        },
+        {
+          "command": "Git.ForcePull",
+          "when": "false"
+        },
+        {
+          "command": "Git.ForcePush",
+          "when": "false"
+        },
+        {
+          "command": "Git.ResetKeep",
+          "when": "false"
+        }
+      ],
+      "scm/title": [
+        {
+          "command": "Git.CommitAmend",
+          "group": "navigation@94",
+          "when": "scmProvider == git"
+        },
+        {
+          "command": "Git.CommitUndo",
+          "group": "navigation@95",
+          "when": "scmProvider == git"
+        },
+        {
+          "command": "Git.ForcePull",
+          "group": "navigation@97",
+          "when": "scmProvider == git"
+        },
+        {
+          "command": "Git.ForcePush",
+          "group": "navigation@98",
+          "when": "scmProvider == git"
+        },
+        {
+          "command": "Git.ResetKeep",
+          "group": "navigation@99",
+          "when": "scmProvider == git"
+        },
+        {
+          "command": "Git.RebaseInteractive",
+          "group": "navigation@96",
+          "when": "scmProvider == git"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "setup": "npm install",
+    "clean": "node -e \"require('fs').rmSync('build', { recursive: true, force: true })\"",
+    "compile": "npm run clean && tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "vscode:prepublish": "npm run compile",
+    "package": "npm run compile && node -e \"const { execFileSync } = require('child_process'); const { version } = require('./package.json'); execFileSync(process.execPath, [process.env.npm_execpath, 'exec', '--', 'vsce', 'package', '--out', 'build/git-quick-actions-' + version + '.vsix'], { stdio: 'inherit' })\""
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.11",
+    "@types/vscode": "^1.146.0",
+    "@vscode/vsce": "^4.1.1",
+    "typescript": "^7.0.2"
+  },
+  "overrides": {
+    "minimatch": "11.0.9"
+  }
+}
